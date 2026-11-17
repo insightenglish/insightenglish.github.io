@@ -304,14 +304,21 @@ const sw = document.querySelector('.theme');
 if (isAdmin) document.querySelectorAll('.theme button').forEach(b => b.onclick = () => setTheme(b.dataset.t));
 else sw.remove();
 
-/* 화면 전환 (#care, #report) */
-function route(){
+/* ============ 방문자 통계 (GoatCounter: insightenglish.goatcounter.com) ============
+   관리자 기기 제외: 그 기기에서 주소 끝에 #toggle-goatcounter 를 한 번 열기 (?admin 으로 열어도 제외됨) */
+function gcCount(o){ try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count(o); } catch(e) {} }
+if (isAdmin) { try { localStorage.setItem('skipgc','t'); } catch(e) {} }
+document.querySelectorAll('[data-link]').forEach(a => a.addEventListener('click', () =>
+  gcCount({ path:'click-' + a.dataset.link, title:a.querySelector('b').firstChild.textContent.trim() + ' 버튼', event:true })));
+
+/* 화면 전환 (#care, #report) */function route(){
   const h = location.hash.slice(1);
   const id = ({care:'v-care', report:'v-report'})[h] || 'v-home';
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('on', v.id === id));
   window.scrollTo(0,0);
-}
-addEventListener('hashchange', route); route();
+  if (h === 'care' || h === 'report') gcCount({ path:'/' + h, title:(h === 'care' ? '관리 모습' : '관리표 미리보기') });
+}addEventListener('hashchange', route); route();
 </script>
+<script data-goatcounter="https://insightenglish.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
