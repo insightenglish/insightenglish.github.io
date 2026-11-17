@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>인사이트영어</title>
+<meta name="description" content="의정부 중·고등 영어 내신 전문 인사이트영어">
+<meta name="theme-color" content="#0e3a32">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+/* ============ 여기만 고치면 됩니다 ============ */
+/* 링크는 아래 <script> 맨 위 LINKS 에서 바꿉니다 */
+:root{
+  --g900:#0b2e28; --g800:#0e3a32; --g700:#144c41; --g500:#2f8f74; --mint:#9fe2c4;
+  --cream:#f3efe4; --paper:#fbfaf6; --ink:#0e3a32; --muted:#5f6f69; --line:rgba(14,58,50,.12);
+  --soft:#e1f3ea; --mintbg:rgba(159,226,196,.16); --ring:rgba(159,226,196,.18);
+}
+/* 파란 테마 (배너 네이비 버전과 같은 색) */
+:root[data-theme="navy"]{
+  --g900:#0b1424; --g800:#101c30; --g700:#18273f; --g500:#3f7fd9; --mint:#8cc8ff;
+  --cream:#eef1f6; --paper:#f8f9fb; --ink:#101c30; --muted:#5d6676; --line:rgba(16,28,48,.12);
+  --soft:#e3eefc; --mintbg:rgba(140,200,255,.16); --ring:rgba(140,200,255,.18);
+}
+body,.hero,.btn,.ic,.card,.rp,.rp-h,.day,.memo{transition:background-color .3s,border-color .3s,color .3s}
+.theme{position:absolute;top:18px;right:18px;z-index:2;display:flex;gap:4px;padding:4px;border-radius:99px;
+       background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16)}
+.theme button{width:30px;height:30px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;background:transparent}
+.theme button i{width:16px;height:16px;border-radius:50%;display:block;box-shadow:0 0 0 2px rgba(255,255,255,.0)}
+.theme button[aria-pressed="true"]{background:rgba(255,255,255,.92)}
+.theme .tg i{background:#2f8f74}
+.theme .tn i{background:#3f7fd9}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;background:var(--cream);color:var(--ink);
+     letter-spacing:-.01em;min-height:100vh}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:480px;margin:0 auto;min-height:100vh;background:var(--paper);position:relative;overflow:hidden}
+
+/* ---------- 머리 ---------- */
+.hero{background:linear-gradient(170deg,var(--g800),var(--g700));color:#fff;padding:44px 24px 34px;position:relative}
+.hero::after{content:"";position:absolute;right:-70px;top:-70px;width:230px;height:230px;border-radius:50%;
+             border:1px solid var(--ring)}
+.brand{display:flex;align-items:center;gap:14px}
+.brand .sym{width:62px;height:62px}
+.brand .en{height:17px;display:block}
+.brand .ko{font-size:19px;font-weight:600;letter-spacing:.22em;margin-top:6px}
+.kicker{margin-top:30px;font-size:14px;font-weight:600;color:var(--mint)}
+.hero h1{margin-top:8px;font-size:29px;line-height:1.3;font-weight:800;letter-spacing:-.035em}
+.hero h1 em{font-style:normal;color:var(--mint)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.chips span{font-size:12.5px;padding:6px 11px;border-radius:99px;background:rgba(255,255,255,.09);
+            border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.88)}
+
+/* ---------- 버튼 ---------- */
+.list{padding:22px 18px 8px;display:grid;gap:10px}
+.sec-t{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--g500);margin:10px 4px 2px}
+.btn{display:flex;align-items:center;gap:14px;padding:16px 16px;background:#fff;border:1px solid var(--line);
+     border-radius:16px;box-shadow:0 1px 2px rgba(14,58,50,.04);transition:transform .12s, box-shadow .12s;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit}
+.btn:active{transform:scale(.985)}
+@media (hover:hover){.btn:hover{box-shadow:0 6px 18px rgba(14,58,50,.08)}}
+.ic{flex:0 0 44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--cream);color:var(--g800)}
+.ic svg{width:22px;height:22px}
+.btn .tx{flex:1;min-width:0}
+.btn b{display:block;font-size:16.5px;font-weight:700}
+.btn small{display:block;font-size:13px;color:var(--muted);margin-top:3px}
+.btn .ar{color:#b5bfbb;font-size:20px}
+.btn.main{background:var(--g800);border-color:var(--g800);color:#fff}
+.btn.main .ic{background:var(--mintbg);color:var(--mint)}
+.btn.main small{color:rgba(255,255,255,.7)}
+.btn.main .ar{color:var(--mint)}
+.soon{font-size:11px;font-weight:700;color:var(--g500);background:var(--soft);padding:3px 7px;border-radius:6px;margin-left:6px;vertical-align:2px}
+
+.foot{padding:26px 22px 40px;text-align:center;font-size:12.5px;color:var(--muted);line-height:1.7}
+.foot strong{color:var(--ink)}
+
+/* ---------- 하위 화면 ---------- */
+.view{display:none}
+.view.on{display:block}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:6px;padding:12px 10px;
+     background:rgba(251,250,246,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.back{border:0;background:none;font:inherit;font-size:15px;font-weight:600;color:var(--g800);padding:6px 10px;cursor:pointer}
+.top h2{font-size:16px;font-weight:700}
+.intro{padding:24px 22px 6px}
+.intro .lb{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--g500)}
+.intro h3{font-size:23px;font-weight:800;margin-top:6px;letter-spacing:-.03em;line-height:1.35}
+.intro p{font-size:14px;color:var(--muted);margin-top:8px;line-height:1.6}
+
+/* 관리 모습 */
+.care{padding:14px 18px 30px;display:grid;gap:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.card .ph{aspect-ratio:4/3;background:var(--cream) center/cover no-repeat;position:relative}
+.card .ph.empty{display:grid;place-items:center;color:#9aa8a3;font-size:13px;
+                background-image:repeating-linear-gradient(45deg,transparent 0 10px,rgba(14,58,50,.035) 10px 20px)}
+.card .bd{padding:16px 18px 18px}
+.card .no{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--g500)}
+.card h4{font-size:18px;font-weight:800;margin-top:4px}
+.card p{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.55}
+.card .date{font-size:12px;color:#9aa8a3;margin-top:10px}
+
+/* 관리표 */
+.rp{margin:14px 18px 10px;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.rp-h{background:var(--g800);color:#fff;padding:18px 18px 16px;display:flex;justify-content:space-between;align-items:flex-end}
+.rp-h .t{font-size:11.5px;letter-spacing:.16em;color:var(--mint);font-weight:700}
+.rp-h .n{font-size:20px;font-weight:800;margin-top:4px}
+.rp-h .m{font-size:12.5px;color:rgba(255,255,255,.75);text-align:right;line-height:1.5}
+.rp-s{padding:16px 18px;border-bottom:1px solid var(--line)}
+.rp-s:last-child{border-bottom:0}
+.rp-s .lb{font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:10px;display:flex;justify-content:space-between}
+.rp-s .lb span{color:var(--g500)}
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center}
+.day{background:var(--cream);border-radius:10px;padding:8px 0}
+.day .d{font-size:11px;color:var(--muted)}
+.day .v{font-size:16px;font-weight:800;margin-top:2px}
+.day.full{background:var(--soft)}
+.day.full .v{color:var(--g500)}
+.day.re .v{color:#c27a2c}
+.rows{display:grid;gap:8px}
+.row{display:flex;justify-content:space-between;font-size:14px}
+.row b{font-weight:700}
+.ok{color:var(--g500)} .wn{color:#c27a2c}
+.bar{height:8px;background:var(--cream);border-radius:9px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--g500);border-radius:9px}
+.memo{font-size:14px;line-height:1.65;background:var(--cream);border-radius:12px;padding:12px 14px}
+.memo .by{display:block;font-size:12px;color:var(--muted);margin-top:6px;text-align:right}
+.note{margin:6px 22px 30px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.stamp{display:inline-block;font-size:11px;font-weight:700;color:#c27a2c;border:1px solid #e4c39c;border-radius:6px;padding:2px 6px;margin-bottom:8px}
+
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;background:var(--g900);color:#fff;
+       font-size:14px;padding:11px 18px;border-radius:99px;transition:.25s;pointer-events:none;z-index:9}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= 첫 화면 ================= -->
+<main class="view on" id="v-home">
+  <header class="hero">
+    <div class="theme" role="group" aria-label="색상 테마">
+      <button class="tg" data-t="green" aria-label="초록 테마" aria-pressed="true"><i></i></button>
+      <button class="tn" data-t="navy" aria-label="파란 테마" aria-pressed="false"><i></i></button>
+    </div>
+    <div class="brand">
+      <img class="sym" src="logo4.png" alt="">
+      <div><img class="en" src="wm_white_1.png" alt="Insight English"><div class="ko">인사이트영어</div></div>
+    </div>
+    <div class="kicker">의정부 중·고등 영어 내신 전문</div>
+    <h1>점수가 오르는 데는<br><em>이유가 있습니다.</em></h1>
+    <div class="chips"><span>학교별 대비</span><span>매일 테스트</span><span>1:1 클리닉</span><span>끝까지 관리</span></div>
+  </header>
+
+  <nav class="list">
+    <div class="sec-t">CARE</div>
+    <a class="btn main" href="#care">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="12" cy="12" r="3.2"/><path d="M8 5l1.2-2h5.6L16 5"/></svg></span>
+      <span class="tx"><b>이렇게 관리합니다</b><small>데일리 테스트 · 클리닉 · 수업 현장</small></span><span class="ar">›</span>
+    </a>
+    <a class="btn main" href="#report">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6M10 17h4"/></svg></span>
+      <span class="tx"><b>학부모 관리표 미리보기</b><small>매주 보내드리는 CARE REPORT</small></span><span class="ar">›</span>
+    </a>
+
+    <div class="sec-t">CHANNEL</div>
+    <a class="btn" data-link="blog">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></span>
+      <span class="tx"><b>블로그</b><small>학교별 시험 분석 · 내신 정보</small></span><span class="ar">›</span>
+    </a>
+    <a class="btn" data-link="insta">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg></span>
+      <span class="tx"><b>인스타그램</b><small>수업 · 이벤트 · 결과 소식</small></span><span class="ar">›</span>
+    </a>
+
+    <div class="sec-t">CONTACT</div>
+    <a class="btn" data-link="tel">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg></span>
+      <span class="tx"><b>상담 예약 전화</b><small id="tel-t">010.8732.5995</small></span><span class="ar">›</span>
+    </a>
+    <a class="btn" data-link="map">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+      <span class="tx"><b>오시는 길</b><small>의정부 동일로 458 미림빌딩 5층</small></span><span class="ar">›</span>
+    </a>
+  </nav>
+
+  <footer class="foot"><strong>인사이트영어</strong><br>의정부 동일로 458 미림빌딩 5층 · 010-8732-5995</footer>
+</main>
+
+<!-- ================= 이렇게 관리합니다 ================= -->
+<section class="view" id="v-care">
+  <div class="top"><button class="back" onclick="history.length>1?history.back():location.hash=''">‹ 처음으로</button><h2>이렇게 관리합니다</h2></div>
+  <div class="intro">
+    <div class="lb">HOW WE CARE</div>
+    <h3>말이 아니라<br>과정으로 보여드립니다.</h3>
+    <p>인사이트영어의 하루를 사진으로 남깁니다. 학생 얼굴과 이름은 가려서 올립니다.</p>
+  </div>
+  <div class="care" id="care-list"></div>
+</section>
+
+<!-- ================= 관리표 미리보기 ================= -->
+<section class="view" id="v-report">
+  <div class="top"><button class="back" onclick="history.length>1?history.back():location.hash=''">‹ 처음으로</button><h2>학부모 관리표</h2></div>
+  <div class="intro">
+    <div class="lb">CARE REPORT</div>
+    <h3>매주 이런 관리표를<br>보내드립니다.</h3>
+    <p>숙제, 데일리 테스트, 결석 보충, 클리닉까지 한 장에 담았습니다.</p>
+  </div>
+
+  <div class="rp">
+    <div class="rp-h">
+      <div><div class="t">WEEKLY CARE REPORT</div><div class="n">김○○ 학생</div></div>
+      <div class="m">○○고 1학년<br>11월 3주차</div>
+    </div>
+    <div class="rp-s">
+      <div class="lb">단어 데일리 테스트 <span>만점 3회 / 5회</span></div>
+      <div class="days">
+        <div class="day full"><div class="d">월</div><div class="v">30</div></div>
+        <div class="day"><div class="d">화</div><div class="v">28</div></div>
+        <div class="day full"><div class="d">수</div><div class="v">30</div></div>
+        <div class="day re"><div class="d">목</div><div class="v">24</div></div>
+        <div class="day full"><div class="d">금</div><div class="v">30</div></div>
+      </div>
+    </div>
+    <div class="rp-s">
+      <div class="lb">이번 주 체크</div>
+      <div class="rows">
+        <div class="row"><span>숙제 완료</span><b class="ok">4 / 4</b></div>
+        <div class="row"><span>출결</span><b class="ok">전체 출석</b></div>
+        <div class="row"><span>재시험</span><b class="wn">목 → 금 통과</b></div>
+        <div class="row"><span>클리닉데이</span><b class="ok">토 참석 · 서술형 첨삭</b></div>
+      </div>
+    </div>
+    <div class="rp-s">
+      <div class="lb">시험 범위 진도 <span>72%</span></div>
+      <div class="bar"><i style="width:72%"></i></div>
+    </div>
+    <div class="rp-s">
+      <div class="lb">선생님 한마디</div>
+      <div class="memo">본문 암기는 안정적입니다. 다음 주는 서술형 조건 맞추기를 집중해서 연습하겠습니다.<span class="by">담당 선생님</span></div>
+    </div>
+  </div>
+  <p class="note"><span class="stamp">예시</span><br>위 관리표는 예시입니다. 실제 관리표는 학부모님께만 개별로 보내드립니다.</p>
+</section>
+
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+/* ============ 링크 설정: 주소가 생기면 '' 안에 넣으세요 ============ */
+const LINKS = {
+  blog:  '',                         // 예: 'https://blog.naver.com/아이디'
+  insta: '',                         // 예: 'https://instagram.com/아이디'
+  tel:   'tel:01087325995',
+  map:   'https://map.naver.com/p/search/' + encodeURIComponent('의정부 동일로 458 미림빌딩')
+};
+
+/* ============ 관리 모습 사진: img 에 assets 파일명, 없으면 '' ============ */
+const CARE = [
+  { no:'01 · SCHOOL-FIT',  t:'학교별 자체 제작 내신 자료', d:'학교마다 교과서와 기출을 분석해 우리 학원만의 자료로 수업합니다.', img:'' },
+  { no:'02 · DAILY CHECK', t:'매일 보는 단어·문법 테스트',  d:'만점이 아니면 그날 재시험. 빠짐없이 기록합니다.',                img:'' },
+  { no:'03 · 1:1 CLINIC',  t:'금·토 클리닉데이',            d:'한 문제까지 정확하게, 학생별로 따로 봐 줍니다.',               img:'' },
+  { no:'04 · CARE REPORT', t:'결석 보충과 숙제 관리',        d:'못 온 날은 보충까지. 진행 상황은 학부모님께 공유합니다.',       img:'' },
+  { no:'SPACE',            t:'공부에 집중하는 공간',          d:'의정부 동일로 458 미림빌딩 5층',                               img:'photo1.jpg' },
+  { no:'SPACE',            t:'강의실',                        d:'밝고 조용한 강의실에서 수업합니다.',                           img:'photo2.jpg' }
+];
+
+document.getElementById('care-list').innerHTML = CARE.map(c => `
+  <article class="card">
+    <div class="ph${c.img ? '' : ' empty'}" ${c.img ? `style="background-image:url(${c.img})"` : ''}>${c.img ? '' : '사진 준비 중'}</div>
+    <div class="bd"><div class="no">${c.no}</div><h4>${c.t}</h4><p>${c.d}</p></div>
+  </article>`).join('');
+
+/* 버튼 연결 */
+document.querySelectorAll('[data-link]').forEach(a => {
+  const url = LINKS[a.dataset.link];
+  if (url) {
+    a.href = url;
+    if (/^https?:/.test(url)) { a.target = '_blank'; a.rel = 'noopener'; }
+  } else {
+    a.querySelector('b').insertAdjacentHTML('beforeend', '<span class="soon">준비 중</span>');
+    a.addEventListener('click', e => { e.preventDefault(); toast('곧 열립니다'); });
+  }
+});
+
+function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('on'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('on'),1600); }
+
+/* ============ 테마: 방문자 모두에게 보이는 색 ============
+   'green' = 초록, 'navy' = 파랑. 이 한 줄만 바꿔 다시 올리면 모든 사람에게 바뀜. */
+const THEME = 'green';
+
+/* 관리자 미리보기: 주소 끝에 ?admin 을 붙이면 색 버튼이 나타나 눌러 볼 수 있음.
+   (내 화면에서만 바뀌는 미리보기. 방문자에게는 버튼이 안 보이고 위 THEME 색만 보임) */
+const THEME_COLOR = { green:'#0e3a32', navy:'#101c30' };
+const isAdmin = new URLSearchParams(location.search).has('admin');
+function setTheme(t){
+  if (!THEME_COLOR[t]) t = THEME;
+  document.documentElement.dataset.theme = t;
+  document.querySelector('meta[name=theme-color]').content = THEME_COLOR[t];
+  document.querySelectorAll('.theme button').forEach(b => b.setAttribute('aria-pressed', b.dataset.t === t));
+}
+setTheme(THEME);
+const sw = document.querySelector('.theme');
+if (isAdmin) document.querySelectorAll('.theme button').forEach(b => b.onclick = () => setTheme(b.dataset.t));
+else sw.remove();
+
+/* 화면 전환 (#care, #report) */
+function route(){
+  const h = location.hash.slice(1);
+  const id = ({care:'v-care', report:'v-report'})[h] || 'v-home';
+  document.querySelectorAll('.view').forEach(v => v.classList.toggle('on', v.id === id));
+  window.scrollTo(0,0);
+}
+addEventListener('hashchange', route); route();
+</script>
+</body>
+</html>
