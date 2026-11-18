@@ -96,6 +96,15 @@ a{color:inherit;text-decoration:none}
 .card .ph{aspect-ratio:4/3;background:var(--cream) center/cover no-repeat;position:relative}
 .card .ph.empty{display:grid;place-items:center;color:#9aa8a3;font-size:13px;
                 background-image:repeating-linear-gradient(45deg,transparent 0 10px,rgba(14,58,50,.035) 10px 20px)}
+/* 사진 여러 장: 옆으로 밀어 넘기기 */
+.card .ph.sl{background:var(--cream)}
+.sl .track{position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.sl .track::-webkit-scrollbar{display:none}
+.sl .track div{flex:0 0 100%;scroll-snap-align:center;scroll-snap-stop:always;background:center/cover no-repeat}
+.sl .dots{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;gap:6px;pointer-events:none}
+.sl .dots i{width:7px;height:7px;border-radius:9px;background:rgba(255,255,255,.55);box-shadow:0 0 3px rgba(0,0,0,.25);transition:.2s}
+.sl .dots i.on{width:18px;background:#fff}
+.sl .cnt{position:absolute;top:10px;right:10px;font-size:11.5px;font-weight:700;color:#fff;background:rgba(0,0,0,.42);border-radius:99px;padding:3px 9px;pointer-events:none}
 .card .bd{padding:16px 18px 18px}
 .card .no{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--g500)}
 .card h4{font-size:18px;font-weight:800;margin-top:4px}
@@ -257,21 +266,39 @@ const LINKS = {
   map:   'https://map.naver.com/p/search/' + encodeURIComponent('의정부 동일로 458 미림빌딩')
 };
 
-/* ============ 관리 모습 사진: img 에 assets 파일명, 없으면 '' ============ */
+/* ============ 관리 모습 사진 ============
+   img 에 사진 파일명. 여러 장이면 ['a.jpg','b.jpg','c.jpg'] 처럼 넣으면
+   오른쪽→왼쪽으로 밀어 넘길 수 있음(아래 점·1/3 표시 자동). 없으면 '' */
 const CARE = [
-  { no:'01 · SCHOOL-FIT',  t:'학교별 자체 제작 내신 자료', d:'학교마다 교과서와 기출을 분석해 우리 학원만의 자료로 수업합니다.', img:'' },
+  { no:'01 · SCHOOL-FIT',  t:'학교별 자체 제작 내신 자료', d:'학교마다 교과서와 기출을 분석해 우리 학원만의 자료로 수업합니다.', img:['material1.jpg'] },
   { no:'02 · DAILY CHECK', t:'매일 보는 단어·문법 테스트',  d:'만점이 아니면 그날 재시험. 빠짐없이 기록합니다.',                img:'' },
-  { no:'03 · 1:1 CLINIC',  t:'금·토 클리닉데이',            d:'한 문제까지 정확하게, 학생별로 따로 봐 줍니다.',               img:'' },
+  { no:'03 · 1:1 CLINIC',  t:'금·토 클리닉데이',            d:'한 문제까지 정확하게, 꼼꼼하게 관리합니다.',                  img:'' },
   { no:'04 · CARE REPORT', t:'결석 보충과 숙제 관리',        d:'못 온 날은 보충까지. 진행 상황은 학부모님께 공유합니다.',       img:'' },
   { no:'SPACE',            t:'공부에 집중하는 공간',          d:'의정부 동일로 458 미림빌딩 5층',                               img:'photo1.jpg' },
   { no:'SPACE',            t:'강의실',                        d:'밝고 조용한 강의실에서 수업합니다.',                           img:'photo2.jpg' }
 ];
 
+function photoBox(img){
+  const a = (Array.isArray(img) ? img : [img]).filter(Boolean);
+  if (!a.length) return '<div class="ph empty">사진 준비 중</div>';
+  if (a.length === 1) return `<div class="ph" style="background-image:url(${a[0]})"></div>`;
+  return `<div class="ph sl"><div class="track">${a.map(s => `<div style="background-image:url(${s})"></div>`).join('')}</div>
+    <div class="cnt">1 / ${a.length}</div><div class="dots">${a.map((_, i) => `<i${i ? '' : ' class="on"'}></i>`).join('')}</div></div>`;
+}
 document.getElementById('care-list').innerHTML = CARE.map(c => `
   <article class="card">
-    <div class="ph${c.img ? '' : ' empty'}" ${c.img ? `style="background-image:url(${c.img})"` : ''}>${c.img ? '' : '사진 준비 중'}</div>
+    ${photoBox(c.img)}
     <div class="bd"><div class="no">${c.no}</div><h4>${c.t}</h4><p>${c.d}</p></div>
   </article>`).join('');
+/* 넘길 때 점·숫자 따라 바뀌기 */
+document.querySelectorAll('.sl').forEach(box => {
+  const tr = box.querySelector('.track'), dots = box.querySelectorAll('.dots i'), cnt = box.querySelector('.cnt');
+  tr.addEventListener('scroll', () => {
+    const i = Math.round(tr.scrollLeft / tr.clientWidth);
+    dots.forEach((d, k) => d.classList.toggle('on', k === i));
+    cnt.textContent = (i + 1) + ' / ' + dots.length;
+  }, { passive:true });
+});
 
 /* 버튼 연결 */
 document.querySelectorAll('[data-link]').forEach(a => {
