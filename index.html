@@ -190,6 +190,10 @@ a{color:inherit;text-decoration:none}
       <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6M10 17h4"/></svg></span>
       <span class="tx"><b>학부모 관리표 미리보기</b><small>매주 보내드리는 CARE REPORT</small></span><span class="ar">›</span>
     </a>
+    <a class="btn main" href="#proof">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 01-8 0z"/><path d="M8 6H5a3 3 0 003 4M16 6h3a3 3 0 01-3 4"/><path d="M12 13v4M8.5 21h7M10 17h4v4h-4z"/></svg></span>
+      <span class="tx"><b>결과로 증명합니다</b><small>2026년 1학기 성적우수자</small></span><span class="ar">›</span>
+    </a>
 
     <div class="sec-t">CHANNEL</div>
     <a class="btn" data-link="blog">
@@ -271,6 +275,17 @@ a{color:inherit;text-decoration:none}
   <p class="note"><span class="stamp">예시</span><br>위 관리표는 예시입니다. 실제 관리표는 학부모님께만 개별로 보내드립니다.</p>
 </section>
 
+<!-- ================= 결과로 증명합니다 ================= -->
+<section class="view" id="v-proof">
+  <div class="top"><button class="back" onclick="history.length>1?history.back():location.hash=''">‹ 처음으로</button><h2>결과로 증명합니다</h2></div>
+  <div class="intro">
+    <div class="lb">PROOF</div>
+    <h3>관리가<br>결과로 이어집니다.</h3>
+    <p>2026년 1학기 성적우수자입니다.</p>
+  </div>
+  <div class="care"><article class="card"><img src="result1.png" alt="2026년 1학기 성적우수자" style="display:block;width:100%;height:auto"></article></div>
+</section>
+
 <div class="toast" id="toast"></div>
 </div>
 
@@ -290,7 +305,6 @@ const CARE = [
   { no:'01 · SCHOOL-FIT',  t:'학교별 자체 제작 내신 자료', d:'학교마다 교과서와 기출을 분석해 우리 학원만의 자료로 수업합니다.', img:['material3.jpg','material1.jpg'] },
   { no:'02 · DAILY CHECK', t:'매일 보는 단어·문법 테스트',  d:'만점이 아니면 그날 재시험. 빠짐없이 기록합니다.',                img:['daily1.png','daily4.png','daily3.png','daily2.png'] },
   { no:'03 · CARE REPORT', t:'출결관리와 케어리포트',        d:'확실한 출결관리. 진행 상황은 학부모님께 공유합니다.',       img:['care7.png','care1.png','care2.png','care3.png','care4.png','care5.png','care6.png','care8.png'] },
-  { no:'04 · PROOF',       t:'결과로 증명합니다',            d:'관리가 결과로 이어집니다. 2026년 1학기 성적우수자입니다.',     img:'result1.png', ratio:'906/1280' },
   { no:'SPACE',           t:'공부에 집중하는 공간',          d:'의정부 동일로 458 미림빌딩 5층',                               img:['photo1.jpg','photo3.jpg'] },
   { no:'SPACE',            t:'강의실',                        d:'밝고 조용한 강의실에서 수업합니다.',                           img:['photo2.jpg','photo4.jpg'] }
 ];
@@ -358,12 +372,13 @@ if (isAdmin) { try { localStorage.setItem('skipgc','t'); } catch(e) {} }
 document.querySelectorAll('[data-link]').forEach(a => a.addEventListener('click', () =>
   gcCount({ path:'click-' + a.dataset.link, title:a.querySelector('b').firstChild.textContent.trim() + ' 버튼', event:true })));
 
-/* 화면 전환 (#care, #report) */function route(){
+/* 화면 전환 (#care, #report, #proof) */function route(){
   const h = location.hash.slice(1);
-  const id = ({care:'v-care', report:'v-report'})[h] || 'v-home';
+  const id = ({care:'v-care', report:'v-report', proof:'v-proof'})[h] || 'v-home';
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('on', v.id === id));
   window.scrollTo(0,0);
-  if (h === 'care' || h === 'report') gcCount({ path:'/' + h, title:(h === 'care' ? '관리 모습' : '관리표 미리보기') });
+  const gt = ({care:'관리 모습', report:'관리표 미리보기', proof:'성적우수자'})[h];
+  if (gt) gcCount({ path:'/' + h, title:gt });
 }addEventListener('hashchange', route); route();
 </script>
 <script data-goatcounter="https://insightenglish.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
